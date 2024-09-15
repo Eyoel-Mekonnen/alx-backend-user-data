@@ -32,7 +32,7 @@ def unauthorized_acess() -> None:
     abort(401)
 
 
-@app_views()
-def forbidden_access():
+@app_views('/forbidden/', strict_slashes=False)
+def forbidden_access() -> None:
     """Forbidden access."""
     abort(403)

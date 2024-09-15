@@ -26,7 +26,7 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized', strict_slashes=False)
-def unauthorized_acess():
+@app_views.route('/unauthorized/', strict_slashes=False)
+def unauthorized_acess() -> None:
     """Unauthorized Enpoint for testing."""
     abort(401)

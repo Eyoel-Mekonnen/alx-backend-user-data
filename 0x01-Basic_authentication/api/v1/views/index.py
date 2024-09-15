@@ -30,3 +30,9 @@ def stats() -> str:
 def unauthorized_acess() -> None:
     """Unauthorized Enpoint for testing."""
     abort(401)
+
+
+@app_views()
+def forbidden_access():
+    """Forbidden access."""
+    abort(403)

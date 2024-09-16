@@ -72,10 +72,8 @@ class BasicAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Overload the user for auth."""
-        authorization_header = self.authorization_header(request)
-        base64_auth_token = self.extract_base64_authorization_header(
-                                                                     authorization_header)
-        authorization_token = self.decode_base64_authorization_header(
-                                                                      base64_auth_token)
-        email, password = self.extract_user_credentials(authorization_token)
+        aut_head = self.authorization_header(request)
+        base64_auth_token = self.extract_base64_authorization_header(aut_head)
+        aut_token = self.decode_base64_authorization_header(base64_auth_token)
+        email, password = self.extract_user_credentials(aut_token)
         return self.user_object_from_credentials(email, password)

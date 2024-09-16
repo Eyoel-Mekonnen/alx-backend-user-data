@@ -4,6 +4,9 @@ from api.v1.auth.auth import Auth
 import binascii
 import base64
 from typing import TypeVar
+from models.user import User
+from .auth import Auth
+
 
 class BasicAuth(Auth):
     """Class taht will implement basic auth."""
@@ -52,13 +55,14 @@ class BasicAuth(Auth):
     def user_object_from_credentials(self, user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
         """Return User instance based on email and password."""
-        if type(user_email) == str and type(user_pwd) == str:
-            try:
-                users = User.search({'email': user_email})
-            except:
-                return None
-            if len(users) <= 0:
-                return None
-            if users[0].is_valid_password(user_pwd):
-                return users[0]
-        return None
+        if user_email is None:
+            return None
+        if type(user_email) != str:
+            return None
+        users = User.search({'email': user_email})
+        if not users:
+            return None
+        if users[0].is_valid_password(user_pwd):
+            return users[0]
+        else:
+            return None

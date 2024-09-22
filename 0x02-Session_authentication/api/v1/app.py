@@ -52,7 +52,7 @@ def filter_request():
                          '/api/v1/unauthorized/', '/api/v1/forbidden/']
         if auth.require_auth(request.path, excluded_path):
             auth_header = auth.authorization_header(request)
-            current_user = request.current_user(request)
+            request.current_user = auth.current_user(request)
             if auth_header is None:
                 abort(401)
             if current_user is None:
